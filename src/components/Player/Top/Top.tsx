@@ -7,7 +7,7 @@ import { trackAuthor } from "../../../enums/trackAuthors.ts";
 const Top: FC = () => {
   const { currentTrack } = useAppSelector((state) => state.player);
 
-  const getGif = useCallback((): string => {
+  const getAuthorVideo = useCallback((): string => {
     switch (currentTrack?.author) {
       case trackAuthor.elizar:
         return "/video/elizar.mp4";
@@ -28,7 +28,7 @@ const Top: FC = () => {
       <Col md={6} xs={12}>
         <div className={topStyles.video}>
           <video autoPlay loop>
-            <source src={getGif()} />
+            <source src={getAuthorVideo()} />
           </video>
         </div>
       </Col>

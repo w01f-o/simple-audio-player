@@ -15,7 +15,7 @@ interface State {
   currentTrack: CurrentTrack | null;
   seek: number;
   duration: number;
-  sound: Howl;
+  sound: Howl | null;
 }
 
 const initialState: State = {
@@ -25,13 +25,15 @@ const initialState: State = {
   currentTrack: null,
   seek: 0,
   duration: 0,
-  sound: new Howl({
-    src: " ",
-    html5: true,
-    format: "mp3",
-    volume: 0.1,
-  }),
+  sound: null,
 };
+
+// new Howl({
+//   src: " ",
+//   html5: true,
+//   format: "mp3",
+//   volume: 0.1,
+// }),
 
 export const playerSlice = createSlice({
   name: "player",
@@ -45,7 +47,7 @@ export const playerSlice = createSlice({
       state.currentTrack = action.payload;
       state.seek = 0;
       if (action.payload) {
-        state.sound.stop();
+        state.sound?.stop();
         state.isPlaying = false;
         state.sound = new Howl({
           src: action.payload.src,

@@ -22,19 +22,21 @@ const Controls: FC = () => {
   const dispatch = useAppDispatch();
 
   const mouseUpHandler = useCallback(() => {
-    if (sound.state() === "loaded" && !isPlaying && !isTrackLoading) {
+    if (sound!.state() === "loaded" && !isPlaying && !isTrackLoading) {
       dispatch(setIsLoading(true));
-      sound.play();
+      sound!.play();
     }
   }, [sound, isPlaying, isTrackLoading, dispatch]);
 
   const changeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      sound.pause();
+      if (isPlaying) {
+        sound!.pause();
+      }
       const value = Number(e.target.value);
-      sound.seek(value);
+      sound!.seek(value);
     },
-    [sound],
+    [sound, isPlaying],
   );
 
   const clickHandler = (action: "prev" | "next") => (): void => {
@@ -117,7 +119,7 @@ const Controls: FC = () => {
           <button
             type="button"
             onClick={() => {
-              isPlaying ? sound.pause() : sound.play();
+              isPlaying ? sound!.pause() : sound!.play();
             }}
             title={isPlaying ? "Пауза" : "Воспроизведение"}
             disabled={isTrackLoading}
