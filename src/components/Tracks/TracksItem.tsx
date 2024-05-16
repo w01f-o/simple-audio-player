@@ -1,0 +1,48 @@
+import { Dispatch, FC, HTMLAttributes, SetStateAction } from "react";
+import tracksStyles from "./tracks.module.scss";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux.ts";
+import clsx from "clsx";
+import { setCurrentTrack } from "@/store/player/playerSlice.ts";
+
+interface Props extends Pick<HTMLAttributes<HTMLDivElement>, "onClick"> {
+  track: Track;
+  img: string;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const TracksItem: FC<Props> = ({ track, img, setIsOpen }) => {
+  const { currentTrack } = useAppSelector((state) => state.player);
+
+  const dispatch = useAppDispatch();
+
+  const clickHandler = (): void => {
+    if (currentTrack?.id !== track.id) {
+      dispatch(
+        setCurrentTrack({
+          ...track,
+          src: `http://localhost:8222/api/tracks/getAudio?id=${track.id}`,
+        }),
+      );
+      setIsOpen(false);
+    }
+  };
+
+  return (
+    <div
+      className={clsx({
+        [tracksStyles.item]: true,
+        [tracksStyles.current]: currentTrack?.id === track.id,
+      })}
+      onClick={clickHandler}
+    >
+      <div className={tracksStyles.img}>
+        <img src={img} alt={track.author} />
+      </div>
+      <div className={tracksStyles.info}>
+        <span>{track.author}</span> - <span>{track.name}</span>
+      </div>
+    </div>
+  );
+};
+
+export default TracksItem;

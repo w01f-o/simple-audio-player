@@ -1,0 +1,75 @@
+@import "./variables";
+
+@mixin xs-screen {
+  @media (max-width: $breakpoint-xs) {
+    @content;
+  }
+}
+
+@mixin sm-screen {
+  @media (max-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin md-screen {
+  @media (max-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin lg-screen {
+  @media (max-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin xl-screen {
+  @media (max-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin xxl-screen {
+  @media (max-width: $breakpoint-xxl) {
+    @content;
+  }
+}
+
+@mixin hover-screen {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@mixin not-hover-screen {
+  @media (hover: none) {
+    @content;
+  }
+}
+
+@mixin flex($alignItems: center, $justifyContent: center) {
+  display: flex;
+  align-items: $alignItems;
+  justify-content: $justifyContent;
+}
+
+@mixin primary-font {
+  font: {
+    size: 1.5rem;
+    weight: 500;
+  }
+}
+
+@mixin secondary-font {
+  @include primary-font;
+
+  font-size: 1.125rem;
+}
+
+@mixin title-font {
+  font: {
+    size: 2.5rem;
+    weight: 600;
+  }
+}

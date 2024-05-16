@@ -1,0 +1,30 @@
+@import "@/styles/utils/index";
+
+.row {
+  padding: 3rem;
+
+  @media (max-width: 400px) {
+    padding: 2rem;
+  }
+}
+
+.gif {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  img {
+    width: 100%;
+  }
+}
+
+.title {
+  text-transform: uppercase;
+  @include title-font;
+
+  @include md-screen {
+    margin-bottom: 1rem !important;
+  }
+
+  @include sm-screen {
+    font-size: clamp(1rem, 0.998rem + 2.783vw, 2rem);
+  }
+}

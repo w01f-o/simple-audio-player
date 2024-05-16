@@ -1,0 +1,38 @@
+@import "@/styles/utils/index";
+
+.row {
+  position: relative;
+  padding: 1rem 3rem 0;
+}
+
+.open-list {
+  @include flex();
+
+  button {
+    border: none;
+    background: none;
+
+    $size: 100%;
+
+    svg {
+      width: $size;
+      height: $size;
+    }
+  }
+}
+
+.author {
+  margin-bottom: 0.5rem;
+
+  @include title-font;
+  font: {
+    size: 2rem;
+  }
+}
+
+.name {
+  @include primary-font;
+  font: {
+    size: 1.5rem;
+  }
+}
