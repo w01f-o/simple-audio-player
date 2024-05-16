@@ -1,10 +1,10 @@
-import { FC, memo, useCallback } from "react";
+import { FC, useCallback } from "react";
 import { Col, Row } from "@w01f-o/react-grid-layout";
 import topStyles from "./top.module.scss";
 import { useAppSelector } from "@/hooks/redux.ts";
 import { trackAuthor } from "../../../enums/trackAuthors.ts";
 
-const Top: FC = memo(() => {
+const Top: FC = () => {
   const { currentTrack } = useAppSelector((state) => state.player);
 
   const getGif = useCallback((): string => {
@@ -34,6 +34,6 @@ const Top: FC = memo(() => {
       </Col>
     </Row>
   );
-});
+};
 
 export default Top;

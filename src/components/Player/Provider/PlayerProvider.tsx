@@ -7,7 +7,7 @@ import {
   setIsPlaying,
   setSeek,
 } from "@/store/player/playerSlice.ts";
-import { tracksAPI } from "../../services/trackAPI.ts";
+import { tracksAPI } from "@/services/trackAPI.ts";
 import { getAudioUrl } from "@/utils/getAudioUrl.ts";
 
 interface Props {
@@ -94,10 +94,12 @@ const PlayerProvider: FC<Props> = ({ children }) => {
     };
 
     const playErrorHandler = (): void => {
-      console.error("Play error");
+      throw new Error("Failed to play track");
     };
 
-    const loadErrorHandler = (): void => {};
+    const loadErrorHandler = (): void => {
+      throw new Error("Failed to play track");
+    };
 
     sound.on("pause", pauseHandler);
     sound.on("play", playHandler);

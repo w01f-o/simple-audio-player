@@ -1,16 +1,11 @@
 import { Col, Row } from "@w01f-o/react-grid-layout";
 import { ChangeEvent, FC, useCallback } from "react";
 import controlStyles from "./controls.module.scss";
-import {
-  nextSvg,
-  pauseSvg,
-  playSvg,
-  prevSvg,
-} from "@/components/Player/Controls/svg/svg.tsx";
+import { nextSvg, pauseSvg, playSvg, prevSvg } from "@/assets/svg/svg.tsx";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux.ts";
 import { getStringTime } from "@/utils/getStringSeek.ts";
 import { setCurrentTrack, setIsLoading } from "@/store/player/playerSlice.ts";
-import { tracksAPI } from "../../../services/trackAPI.ts";
+import { tracksAPI } from "@/services/trackAPI.ts";
 import Skeleton from "react-loading-skeleton";
 import { getAudioUrl } from "@/utils/getAudioUrl.ts";
 

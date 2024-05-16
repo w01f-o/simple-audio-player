@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { Col, Row } from "@w01f-o/react-grid-layout";
 import infoStyles from "./info.module.scss";
-import { trackListSvg } from "@/components/Player/Controls/svg/svg.tsx";
+import { trackListSvg } from "@/assets/svg/svg.tsx";
 import TracksList from "@/components/Tracks/TracksList.tsx";
 import { useAppSelector } from "@/hooks/redux.ts";
 import Skeleton from "react-loading-skeleton";

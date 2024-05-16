@@ -20,7 +20,9 @@
       "@/styles/*": ["app/styles/*"],
       "@/store/*": ["store/*"],
       "@/types/*": ["types/*"],
-      "@/utils/*": ["utils/*"]
+      "@/utils/*": ["utils/*"],
+      "@/services/*": ["services/*"],
+      "@/assets/*": ["assets/*"]
     },
 
     /* Linting */

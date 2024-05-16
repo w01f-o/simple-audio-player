@@ -14,6 +14,7 @@ export const setupStore = () =>
       getDefaultMiddleware({
         serializableCheck: false,
       }).concat(tracksAPI.middleware),
+    devTools: false,
   });
 
 export type RootState = ReturnType<typeof rootReducer>;
