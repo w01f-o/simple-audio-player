@@ -28,13 +28,6 @@ const initialState: State = {
   sound: null,
 };
 
-// new Howl({
-//   src: " ",
-//   html5: true,
-//   format: "mp3",
-//   volume: 0.1,
-// }),
-
 export const playerSlice = createSlice({
   name: "player",
   initialState,
