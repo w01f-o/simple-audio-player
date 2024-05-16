@@ -56,7 +56,9 @@ const TracksList: FC<Props> = ({ isOpen, setIsOpen }) => {
               />
             )}
             {isError && (
-              <div className={tracksStyles.error}>Произошла ошибка</div>
+              <div className={tracksStyles.error}>
+                Произошла ошибка соединения с сервером
+              </div>
             )}
             {data &&
               data.map((track: Track, index) => (
