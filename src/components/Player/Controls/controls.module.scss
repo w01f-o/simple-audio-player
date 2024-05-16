@@ -27,7 +27,6 @@
 }
 
 .range {
-  -webkit-appearance: none;
   appearance: none;
   width: 100%;
   cursor: pointer;
@@ -37,13 +36,10 @@
   background: #ccc;
 
   &::-webkit-slider-thumb {
-    -webkit-appearance: none;
     appearance: none;
     height: 7px;
     width: 7px;
     background-color: $fontPrimary;
-    -webkit-box-shadow: 0 0 0 5px rgba(52, 52, 52, 1);
-    -moz-box-shadow: 0 0 0 5px rgba(52, 52, 52, 1);
     box-shadow: 0 0 0 5px rgba(52, 52, 52, 1);
     border-radius: 50%;
     border: none;
