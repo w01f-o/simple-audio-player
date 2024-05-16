@@ -1,6 +1,6 @@
 import { tracksAPI } from "../../services/trackAPI.ts";
 import tracksStyles from "./tracks.module.scss";
-import { Dispatch, FC, SetStateAction, MouseEvent, useRef } from "react";
+import { Dispatch, FC, MouseEvent, SetStateAction, useRef } from "react";
 import TracksItem from "@/components/Tracks/TracksItem.tsx";
 import { Transition } from "react-transition-group";
 
@@ -18,6 +18,7 @@ import trackCoverVadim2 from "./img/covers/2vadim.png";
 import trackCoverVadim3 from "./img/covers/3vadim.png";
 import trackCoverVadim4 from "./img/covers/4vadim.png";
 import { trackAuthor } from "../../enums/trackAuthors.ts";
+import Skeleton from "react-loading-skeleton";
 
 interface Props {
   isOpen: boolean;
@@ -68,7 +69,7 @@ const getTrackCover = (track: Track, index: number): string => {
 };
 
 const TracksList: FC<Props> = ({ isOpen, setIsOpen }) => {
-  const { data } = tracksAPI.useFetchAllTracksQuery();
+  const { data, isLoading, isError } = tracksAPI.useFetchAllTracksQuery();
 
   const modalRef = useRef<HTMLDivElement | null>(null);
 
@@ -95,6 +96,17 @@ const TracksList: FC<Props> = ({ isOpen, setIsOpen }) => {
             className={tracksStyles.content}
             onClick={(e: MouseEvent<HTMLDivElement>) => e.stopPropagation()}
           >
+            {isLoading && (
+              <Skeleton
+                count={10}
+                className={tracksStyles["loader"]}
+                borderRadius={8}
+                containerClassName={tracksStyles["loader-container"]}
+              />
+            )}
+            {isError && (
+              <div className={tracksStyles.error}>Произошла ошибка</div>
+            )}
             {data &&
               data.map((track: Track, index) => (
                 <TracksItem

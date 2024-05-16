@@ -3,12 +3,15 @@
 .row {
   position: relative;
   padding: 1rem 3rem 0;
+  height: 92px;
 }
 
 .open-list {
   @include flex();
 
   button {
+    width: 25px;
+    height: 25px;
     border: none;
     background: none;
 
@@ -34,5 +37,23 @@
   @include primary-font;
   font: {
     size: 1.5rem;
+  }
+}
+
+.author-loader {
+  display: block;
+  width: 40%;
+
+  @include lg-screen {
+      width: 90%;
+  }
+}
+
+.name-loader {
+  display: block;
+  width: 30%;
+
+  @include lg-screen {
+    width: 80%;
   }
 }

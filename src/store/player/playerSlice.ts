@@ -10,21 +10,23 @@ interface CurrentTrack {
 
 interface State {
   isPlaying: boolean;
+  isLoading: boolean;
+  isFirstLoad: boolean;
   currentTrack: CurrentTrack | null;
   seek: number;
   duration: number;
-  isFirstLoad: boolean;
   sound: Howl;
 }
 
 const initialState: State = {
+  isFirstLoad: true,
   isPlaying: false,
+  isLoading: true,
   currentTrack: null,
   seek: 0,
   duration: 0,
-  isFirstLoad: true,
   sound: new Howl({
-    src: `null`,
+    src: " ",
     html5: true,
     format: "mp3",
     volume: 0.1,
@@ -39,6 +41,7 @@ export const playerSlice = createSlice({
       state.isPlaying = action.payload;
     },
     setCurrentTrack: (state, action: PayloadAction<CurrentTrack | null>) => {
+      state.isLoading = true;
       state.currentTrack = action.payload;
       state.seek = 0;
       if (action.payload) {
@@ -62,10 +65,18 @@ export const playerSlice = createSlice({
     setDuration: (state, action: PayloadAction<number>) => {
       state.duration = action.payload;
     },
+    setIsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
-export const { setIsPlaying, setCurrentTrack, setSeek, setDuration } =
-  playerSlice.actions;
+export const {
+  setIsPlaying,
+  setCurrentTrack,
+  setSeek,
+  setDuration,
+  setIsLoading,
+} = playerSlice.actions;
 
 export default playerSlice.reducer;

@@ -3,6 +3,8 @@ import tracksStyles from "./tracks.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux.ts";
 import clsx from "clsx";
 import { setCurrentTrack } from "@/store/player/playerSlice.ts";
+import { Img } from "react-image";
+import Skeleton from "react-loading-skeleton";
 
 interface Props extends Pick<HTMLAttributes<HTMLDivElement>, "onClick"> {
   track: Track;
@@ -36,10 +38,18 @@ const TracksItem: FC<Props> = ({ track, img, setIsOpen }) => {
       onClick={clickHandler}
     >
       <div className={tracksStyles.img}>
-        <img src={img} alt={track.author} />
+        <Img
+          src={img}
+          loader={
+            <Skeleton
+              circle={true}
+              containerClassName={tracksStyles["img-loader"]}
+            />
+          }
+        />
       </div>
       <div className={tracksStyles.info}>
-        <span>{track.author}</span> - <span>{track.name}</span>
+        <span>{track.author}</span> <span>-</span> <span>{track.name}</span>
       </div>
     </div>
   );

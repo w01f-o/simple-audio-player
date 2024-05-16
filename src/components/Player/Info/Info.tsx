@@ -4,11 +4,11 @@ import infoStyles from "./info.module.scss";
 import { trackListSvg } from "@/components/Player/Controls/svg/svg.tsx";
 import TracksList from "@/components/Tracks/TracksList.tsx";
 import { useAppSelector } from "@/hooks/redux.ts";
+import Skeleton from "react-loading-skeleton";
 
 const Info: FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-
-  const { currentTrack } = useAppSelector((state) => state.player);
+  const { currentTrack, isLoading } = useAppSelector((state) => state.player);
 
   return (
     <Row className={infoStyles.row}>
@@ -16,10 +16,18 @@ const Info: FC = () => {
       <Col xs={10}>
         <div>
           <div className={infoStyles.author}>
-            {currentTrack !== null ? currentTrack.author : "Loading"}
+            {isLoading ? (
+              <Skeleton containerClassName={infoStyles["author-loader"]} />
+            ) : (
+              currentTrack?.author
+            )}
           </div>
           <div className={infoStyles.name}>
-            {currentTrack !== null ? currentTrack.name : "Loading"}
+            {isLoading ? (
+              <Skeleton containerClassName={infoStyles["name-loader"]} />
+            ) : (
+              currentTrack?.name
+            )}
           </div>
         </div>
       </Col>

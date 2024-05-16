@@ -10,13 +10,13 @@ const Top: FC = memo(() => {
   const getGif = useCallback((): string => {
     switch (currentTrack?.author) {
       case trackAuthor.elizar:
-        return "/gif/elizar.gif";
+        return "/video/elizar.mp4";
 
       case trackAuthor.vadim:
-        return "/gif/vadim.gif";
+        return "/video/vadim.mp4";
 
       default:
-        return "/gif/vadim.gif";
+        return "/video/vadim.mp4";
     }
   }, [currentTrack?.author]);
 
@@ -26,8 +26,10 @@ const Top: FC = memo(() => {
         <h1 className={topStyles.title}>Наши хиты</h1>
       </Col>
       <Col md={6} xs={12}>
-        <div className={topStyles.gif}>
-          <img src={getGif()} alt="author-gif" />
+        <div className={topStyles.video}>
+          <video autoPlay loop>
+            <source src={getGif()} />
+          </video>
         </div>
       </Col>
     </Row>

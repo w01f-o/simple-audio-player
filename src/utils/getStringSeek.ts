@@ -1,5 +1,5 @@
-export const getStringSeek = (seek: number) => {
-  const minutes = Math.floor(seek / 60);
-  const seconds = Math.floor(seek % 60);
+export const getStringTime = (time: number) => {
+  const minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time % 60);
   return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
 };

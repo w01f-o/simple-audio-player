@@ -8,23 +8,30 @@ import {
   prevSvg,
 } from "@/components/Player/Controls/svg/svg.tsx";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux.ts";
-import { getStringTrackDuration } from "@/utils/getStringTrackDuration.ts";
-import { getStringSeek } from "@/utils/getStringSeek.ts";
-import { setCurrentTrack } from "@/store/player/playerSlice.ts";
+import { getStringTime } from "@/utils/getStringSeek.ts";
+import { setCurrentTrack, setIsLoading } from "@/store/player/playerSlice.ts";
 import { tracksAPI } from "../../../services/trackAPI.ts";
+import Skeleton from "react-loading-skeleton";
+import { getAudioUrl } from "@/utils/getAudioUrl.ts";
 
 const Controls: FC = () => {
-  const { sound, isPlaying, seek, duration, currentTrack } = useAppSelector(
-    (state) => state.player,
-  );
+  const {
+    sound,
+    isPlaying,
+    seek,
+    duration,
+    currentTrack,
+    isLoading: isTrackLoading,
+  } = useAppSelector((state) => state.player);
   const { data, isLoading } = tracksAPI.useFetchAllTracksQuery();
   const dispatch = useAppDispatch();
 
   const mouseUpHandler = useCallback(() => {
-    if (sound.state() !== "loading" && !isPlaying) {
+    if (sound.state() === "loaded" && !isPlaying && !isTrackLoading) {
+      dispatch(setIsLoading(true));
       sound.play();
     }
-  }, [sound, isPlaying]);
+  }, [sound, isPlaying, isTrackLoading, dispatch]);
 
   const changeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +70,7 @@ const Controls: FC = () => {
       dispatch(
         setCurrentTrack({
           ...data[trackIndex],
-          src: `http://localhost:8222/api/tracks/getAudio?id=${data[trackIndex].id}`,
+          src: getAudioUrl(data[trackIndex].id),
         }),
       );
     }
@@ -73,23 +80,34 @@ const Controls: FC = () => {
     <Row className={controlStyles.row}>
       <Col xs={12}>
         <div className={controlStyles.time}>
-          <div className={controlStyles.current}>{getStringSeek(seek)}</div>
+          <div className={controlStyles.current}>
+            {isTrackLoading ? <Skeleton /> : getStringTime(seek)}
+          </div>
           <div className={controlStyles.duration}>
-            {getStringTrackDuration(duration)}
+            {isTrackLoading ? <Skeleton /> : getStringTime(duration)}
           </div>
         </div>
       </Col>
       <Col xs={12}>
-        <input
-          type="range"
-          className={controlStyles.range}
-          value={seek}
-          min={0}
-          max={duration}
-          onChange={changeHandler}
-          onMouseUp={mouseUpHandler}
-          onTouchEnd={mouseUpHandler}
-        />
+        {isTrackLoading ? (
+          <Skeleton />
+        ) : (
+          <input
+            type="range"
+            className={controlStyles.range}
+            value={seek}
+            min={0}
+            max={duration}
+            onChange={changeHandler}
+            onMouseUp={mouseUpHandler}
+            onTouchEnd={mouseUpHandler}
+            style={{
+              background: `linear-gradient(to right, #343434 ${
+                seek / (duration / 100)
+              }%, #ccc ${seek / (duration / 100)}%)`,
+            }}
+          />
+        )}
       </Col>
       <Col xs={12}>
         <div className={controlStyles.buttons}>
@@ -97,17 +115,17 @@ const Controls: FC = () => {
             type="button"
             title="Предыдущий трек"
             onClick={clickHandler("prev")}
+            disabled={isTrackLoading}
           >
             {prevSvg}
           </button>
           <button
             type="button"
             onClick={() => {
-              if (sound.state() === "unloaded" || sound.state() === "loaded") {
-                isPlaying ? sound.pause() : sound.play();
-              }
+              isPlaying ? sound.pause() : sound.play();
             }}
             title={isPlaying ? "Пауза" : "Воспроизведение"}
+            disabled={isTrackLoading}
           >
             {isPlaying ? pauseSvg : playSvg}
           </button>
@@ -115,6 +133,7 @@ const Controls: FC = () => {
             type="button"
             title="Следующий трек"
             onClick={clickHandler("next")}
+            disabled={isTrackLoading}
           >
             {nextSvg}
           </button>

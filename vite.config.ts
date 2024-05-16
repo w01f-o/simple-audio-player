@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import autoprefixer from "autoprefixer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,6 +13,11 @@ export default defineConfig({
       "@/store": "/src/store",
       "@/types": "/src/types",
       "@/utils": "/src/utils",
+    },
+  },
+  css: {
+    postcss: {
+      plugins: [autoprefixer({})],
     },
   },
 });

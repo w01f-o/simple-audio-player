@@ -3,10 +3,12 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux.ts";
 import {
   setCurrentTrack,
   setDuration,
+  setIsLoading,
   setIsPlaying,
   setSeek,
 } from "@/store/player/playerSlice.ts";
 import { tracksAPI } from "../../services/trackAPI.ts";
+import { getAudioUrl } from "@/utils/getAudioUrl.ts";
 
 interface Props {
   children: ReactNode;
@@ -24,7 +26,7 @@ const PlayerProvider: FC<Props> = ({ children }) => {
       dispatch(
         setCurrentTrack({
           ...data[0],
-          src: `http://localhost:8222/api/tracks/getAudio?id=${data[0].id}`,
+          src: getAudioUrl(data[0].id),
         }),
       );
     }
@@ -56,6 +58,7 @@ const PlayerProvider: FC<Props> = ({ children }) => {
   useEffect(() => {
     const playHandler = (): void => {
       dispatch(setIsPlaying(true));
+      dispatch(setIsLoading(false));
     };
 
     const pauseHandler = (): void => {
@@ -75,7 +78,7 @@ const PlayerProvider: FC<Props> = ({ children }) => {
         dispatch(
           setCurrentTrack({
             ...data[nextTracksIndex],
-            src: `http://localhost:8222/api/tracks/getAudio?id=${data[nextTracksIndex].id}`,
+            src: getAudioUrl(data[nextTracksIndex].id),
           }),
         );
       }
@@ -87,11 +90,14 @@ const PlayerProvider: FC<Props> = ({ children }) => {
 
     const loadHandler = (): void => {
       dispatch(setDuration(sound.duration()));
+      dispatch(setIsLoading(false));
     };
 
     const playErrorHandler = (): void => {
       console.error("Play error");
     };
+
+    const loadErrorHandler = (): void => {};
 
     sound.on("pause", pauseHandler);
     sound.on("play", playHandler);
@@ -99,6 +105,7 @@ const PlayerProvider: FC<Props> = ({ children }) => {
     sound.on("load", loadHandler);
     sound.on("playerror", playErrorHandler);
     sound.on("end", endHandler);
+    sound.on("loaderror", loadErrorHandler);
 
     return () => {
       sound.off("pause", pauseHandler);
@@ -107,6 +114,7 @@ const PlayerProvider: FC<Props> = ({ children }) => {
       sound.off("load", loadHandler);
       sound.off("playerror", playErrorHandler);
       sound.off("end", endHandler);
+      sound.off("loaderror", loadErrorHandler);
     };
   }, [sound, isPlaying]);
 
