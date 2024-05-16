@@ -46,7 +46,7 @@ export const playerSlice = createSlice({
           src: action.payload.src,
           html5: true,
           format: "mp3",
-          volume: 0.1,
+          volume: 1,
         });
         if (!state.isFirstLoad) {
           state.sound.play();
