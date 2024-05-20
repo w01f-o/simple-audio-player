@@ -8,7 +8,7 @@ export const tracksAPI = createApi({
   endpoints: (build) => ({
     fetchAllTracks: build.query<Track[], void>({
       query: () => ({
-        url: "/track",
+        url: "/tracks",
       }),
     }),
   }),
