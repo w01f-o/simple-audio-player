@@ -5,7 +5,6 @@ import clsx from "clsx";
 import { setCurrentTrack } from "@/store/player/playerSlice.ts";
 import { Img } from "react-image";
 import Skeleton from "react-loading-skeleton";
-import { getAudioUrl } from "@/utils/getAudioUrl.ts";
 
 interface Props extends Pick<HTMLAttributes<HTMLDivElement>, "onClick"> {
   track: Track;
@@ -20,12 +19,7 @@ const TracksItem: FC<Props> = ({ track, img, setIsOpen }) => {
 
   const clickHandler = (): void => {
     if (currentTrack?.id !== track.id) {
-      dispatch(
-        setCurrentTrack({
-          ...track,
-          src: getAudioUrl(track.id),
-        }),
-      );
+      dispatch(setCurrentTrack(track));
       setIsOpen(false);
     }
   };

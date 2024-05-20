@@ -8,7 +8,6 @@ import {
   setSeek,
 } from "@/store/player/playerSlice.ts";
 import { tracksAPI } from "@/services/trackAPI.ts";
-import { getAudioUrl } from "@/utils/getAudioUrl.ts";
 
 interface Props {
   children: ReactNode;
@@ -26,7 +25,6 @@ const PlayerProvider: FC<Props> = ({ children }) => {
       dispatch(
         setCurrentTrack({
           ...data[0],
-          src: getAudioUrl(data[0].id),
         }),
       );
     }
@@ -79,7 +77,6 @@ const PlayerProvider: FC<Props> = ({ children }) => {
           dispatch(
             setCurrentTrack({
               ...data[nextTracksIndex],
-              src: getAudioUrl(data[nextTracksIndex].id),
             }),
           );
         }

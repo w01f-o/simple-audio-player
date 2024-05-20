@@ -1,18 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Howl } from "howler";
 
-interface CurrentTrack {
-  name: string;
-  author: string;
-  id: string;
-  src: string;
-}
-
 interface State {
   isPlaying: boolean;
   isLoading: boolean;
   isFirstLoad: boolean;
-  currentTrack: CurrentTrack | null;
+  currentTrack: Track | null;
   seek: number;
   duration: number;
   sound: Howl | null;
@@ -35,7 +28,7 @@ export const playerSlice = createSlice({
     setIsPlaying: (state, action: PayloadAction<boolean>) => {
       state.isPlaying = action.payload;
     },
-    setCurrentTrack: (state, action: PayloadAction<CurrentTrack | null>) => {
+    setCurrentTrack: (state, action: PayloadAction<Track | null>) => {
       state.isLoading = true;
       state.currentTrack = action.payload;
       state.seek = 0;
@@ -43,7 +36,7 @@ export const playerSlice = createSlice({
         state.sound?.stop();
         state.isPlaying = false;
         state.sound = new Howl({
-          src: action.payload.src,
+          src: `${import.meta.env.VITE_BASE_URL}/${action.payload.fileName}`,
           html5: true,
           format: "mp3",
           volume: 1,

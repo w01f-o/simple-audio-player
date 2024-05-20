@@ -7,7 +7,6 @@ import { getStringTime } from "@/utils/getStringSeek.ts";
 import { setCurrentTrack, setIsLoading } from "@/store/player/playerSlice.ts";
 import { tracksAPI } from "@/services/trackAPI.ts";
 import Skeleton from "react-loading-skeleton";
-import { getAudioUrl } from "@/utils/getAudioUrl.ts";
 
 const Controls: FC = () => {
   const {
@@ -64,12 +63,7 @@ const Controls: FC = () => {
           break;
       }
 
-      dispatch(
-        setCurrentTrack({
-          ...data[trackIndex],
-          src: getAudioUrl(data[trackIndex].id),
-        }),
-      );
+      dispatch(setCurrentTrack(data[trackIndex]));
     }
   };
 
