@@ -1,28 +1,24 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useMemo } from "react";
 import { Col, Row } from "@w01f-o/react-grid-layout";
 import topStyles from "./top.module.scss";
 import { useAppSelector } from "@/hooks/redux.ts";
 import { trackAuthor } from "../../../enums/trackAuthors.ts";
 
 const Top: FC = () => {
-  const { currentTrack } = useAppSelector((state) => state.player);
-  const [videoSrc, setVideoSrc] = useState<string>("");
+  const currentTrackAuthor = useAppSelector(
+    (state) => state.player.currentTrack?.author,
+  );
 
-  useEffect(() => {
-    switch (currentTrack?.author) {
+  const videoSrc = useMemo(() => {
+    switch (currentTrackAuthor) {
       case trackAuthor.elizar:
-        setVideoSrc("/video/elizar.mp4");
-        break;
-
+        return "/video/elizar.mp4";
       case trackAuthor.vadim:
-        setVideoSrc("/video/vadim.mp4");
-        break;
-
+        return "/video/vadim.mp4";
       default:
-        setVideoSrc("/video/vadim.mp4");
-        break;
+        return "/video/vadim.mp4";
     }
-  }, [currentTrack?.author]);
+  }, [currentTrackAuthor]);
 
   return (
     <Row className={topStyles.row}>

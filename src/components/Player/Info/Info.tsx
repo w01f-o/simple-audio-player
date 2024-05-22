@@ -1,18 +1,16 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Col, Row } from "@w01f-o/react-grid-layout";
 import infoStyles from "./info.module.scss";
-import { trackListSvg } from "@/assets/svg/svg.tsx";
 import TracksList from "@/components/Tracks/TracksList.tsx";
 import { useAppSelector } from "@/hooks/redux.ts";
 import Skeleton from "react-loading-skeleton";
 
 const Info: FC = () => {
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const { currentTrack, isLoading } = useAppSelector((state) => state.player);
+  const currentTrack = useAppSelector((state) => state.player.currentTrack);
+  const isLoading = useAppSelector((state) => state.player.isLoading);
 
   return (
     <Row className={infoStyles.row}>
-      <TracksList isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />
       <Col xs={10}>
         <div>
           <div className={infoStyles.author}>
@@ -32,13 +30,7 @@ const Info: FC = () => {
         </div>
       </Col>
       <Col xs={2} className={infoStyles["open-list"]}>
-        <button
-          onClick={() => setModalIsOpen(!modalIsOpen)}
-          type="button"
-          title="Список треков"
-        >
-          {trackListSvg}
-        </button>
+        <TracksList />
       </Col>
     </Row>
   );

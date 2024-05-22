@@ -1,4 +1,4 @@
-import { Dispatch, FC, HTMLAttributes, SetStateAction } from "react";
+import { Dispatch, FC, HTMLAttributes, memo, SetStateAction } from "react";
 import tracksStyles from "./tracks.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux.ts";
 import clsx from "clsx";
@@ -12,8 +12,8 @@ interface Props extends Pick<HTMLAttributes<HTMLDivElement>, "onClick"> {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const TracksItem: FC<Props> = ({ track, img, setIsOpen }) => {
-  const { currentTrack } = useAppSelector((state) => state.player);
+const TracksItem: FC<Props> = memo(({ track, img, setIsOpen }) => {
+  const currentTrack = useAppSelector((state) => state.player.currentTrack);
 
   const dispatch = useAppDispatch();
 
@@ -48,6 +48,6 @@ const TracksItem: FC<Props> = ({ track, img, setIsOpen }) => {
       </div>
     </div>
   );
-};
+});
 
 export default TracksItem;
