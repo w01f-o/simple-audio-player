@@ -15,7 +15,7 @@ const ProgressBar: FC = () => {
       dispatch(setIsLoading(true));
       sound!.play();
     }
-  }, [sound, isPlaying]);
+  }, [sound, isPlaying, isLoading, dispatch]);
 
   const changeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
