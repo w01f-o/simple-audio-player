@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { setCurrentTrack } from "@/store/player/playerSlice.ts";
 import { Img } from "react-image";
 import Skeleton from "react-loading-skeleton";
+import { Track } from "@/types/tracks.type.ts";
 
 interface Props extends Pick<HTMLAttributes<HTMLDivElement>, "onClick"> {
   track: Track;

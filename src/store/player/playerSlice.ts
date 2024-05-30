@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Howl } from "howler";
+import { Track } from "@/types/tracks.type.ts";
 
 interface State {
   isPlaying: boolean;

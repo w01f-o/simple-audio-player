@@ -6,6 +6,7 @@ import Skeleton from "react-loading-skeleton";
 import { getTrackCover } from "@/utils/getTrackCover.ts";
 import TracksListModal from "@/components/Tracks/TrackListModal.tsx";
 import { trackListSvg } from "@/assets/svg/svg.tsx";
+import { Track } from "@/types/tracks.type.ts";
 
 const TracksList: FC = memo(() => {
   const { data, isLoading, isError } = tracksAPI.useFetchAllTracksQuery();

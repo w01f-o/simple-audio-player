@@ -3,6 +3,7 @@ import {
   elizarTrackCoversArray,
   vadimTrackCoversArray,
 } from "../assets/img/covers/covers.ts";
+import { Track } from "@/types/tracks.type.ts";
 
 export const getTrackCover = (track: Track, index: number): string => {
   switch (track.author) {
