@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.4",
     "@types/howler": "^2.2.11",
+    "@types/node": "^22.7.5",
     "@types/postcss-pxtorem": "^6.0.3",
     "@types/react-transition-group": "^4.4.10",
     "@w01f-o/react-grid-layout": "^1.0.3",

@@ -23,4 +23,7 @@ export default defineConfig({
       plugins: [autoprefixer({}), pxtorem({ replace: true, propList: ["*"] })],
     },
   },
+  define: {
+    __APP_ENV__: process.env.VITE_VERCEL_ENV,
+  }
 });
